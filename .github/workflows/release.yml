@@ -70,6 +70,8 @@ jobs:
 
       - name: "📦 install dependencies"
         uses: bahmutov/npm-install@v1
+        with:
+          install-command: "npm install --engine-strict=false"
 
       - name: "📊 repository visualizer"
         id: diagram

@@ -124,6 +124,12 @@ To install the application:
 npm install
 ```
 
+To refresh the lockfile after package changes:
+
+```shell
+npm run sync-lockfile
+```
+
 To start a local copy of the app on port `3000`:
 
 ```shell

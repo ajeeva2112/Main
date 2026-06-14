@@ -25,6 +25,7 @@
     "build:analyze": "npm run build -- --mode report",
     "build:svgo": "npx svgo src/**/*.svg --config ./.svgorc.js",
     "build:squoosh": "node optimize.js '{src,public}/**/*.{jpg,jpeg,png,gif}'",
+    "sync-lockfile": "npm install --engine-strict=false && npm shrinkwrap --engine-strict=false",
     "test": "npx jest --config ./.jest/jest.config.cjs --passWithNoTests",
     "test:watch": "npm run test -- --watch",
     "test:all": "npm run test -- --silent --watchAll=false",
