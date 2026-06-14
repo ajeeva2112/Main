@@ -66,7 +66,7 @@ jobs:
       - name: "🔧 setup node"
         uses: actions/setup-node@v3
         with:
-          node-version: 24   # upgrade to Node 22
+          node-version: 22   # upgrade to Node 22
 
       - name: "📦 install dependencies"
         uses: bahmutov/npm-install@v1
