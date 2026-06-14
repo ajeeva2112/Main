@@ -8,7 +8,7 @@ COPY npm-shrinkwrap.json ./
 COPY .npmrc ./
 
 # Install dependencies
-RUN npm ci --engine-strict=false
+RUN npm install --engine-strict=false
 
 # Copy source files
 COPY .*.js ./

@@ -36,7 +36,7 @@
 			"onAutoForward": "notify"
 		}
 	},
-  "postCreateCommand": "npm ci && npm start",
+  "postCreateCommand": "npm install && npm start",
   "features": {
     "git": "os-provided",
     "github-cli": "latest",

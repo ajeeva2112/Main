@@ -121,7 +121,7 @@ Open Sauced is configured with a shell environment supporting node@16 and npm@8.
 To install the application:
 
 ```shell
-npm ci
+npm install
 ```
 
 To start a local copy of the app on port `3000`:

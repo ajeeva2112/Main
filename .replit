@@ -1,5 +1,5 @@
 language = "nix"
-run = "npm ci && npm start"
+run = "npm install && npm start"
 
 [packager]
 language = "nodejs-npm"

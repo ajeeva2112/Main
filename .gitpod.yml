@@ -17,7 +17,7 @@ ports:
 
 tasks:
   - name: Install dependencies
-    init: npm ci
+    init: npm install
     command: gp sync-done build
   - name: Run vite dev
     init: gp sync-await build
