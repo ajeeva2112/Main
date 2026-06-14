@@ -48,5 +48,5 @@ jobs:
       - name: "📦 install dependencies"
         uses: bahmutov/npm-install@v1
 
-      - name: "🔍 lint code"
+      - name: "lint code"
         run: npm run lint --if-present
