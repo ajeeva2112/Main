@@ -1,4 +1,4 @@
-FROM node:16-alpine as development
+FROM node:22-alpine as development
 
 WORKDIR /app
 
@@ -6,7 +6,7 @@ COPY package.json ./
 COPY npm-shrinkwrap.json ./
 COPY .npmrc ./
 
-RUN npm install --global npm@latest
+
 RUN npm ci
 
 COPY .*.js ./

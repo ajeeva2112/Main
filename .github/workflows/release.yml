@@ -1,7 +1,64 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+      - alpha
+      - beta
+
 jobs:
   test:
-    name: Test application
+    name: Test and lint
+    uses: open-sauced/open-sauced/.github/workflows/development.yml@main
+
+  docker:
+    name: Build container
     runs-on: [self-hosted, Linux, X64]
+    timeout-minutes: 10
+    steps:
+      - name: "☁️ checkout repository"
+        uses: actions/checkout@v3
+
+      - name: "🔧 setup buildx"
+        uses: docker/setup-buildx-action@v3
+
+      - name: "🔧 cache docker layers"
+        uses: actions/cache@v3
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      - name: "🔧 docker meta"
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ github.repository }}
+          tags: latest
+
+      - name: "📦 docker build"
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          outputs: type=docker,dest=/tmp/docker.tar
+          push: false
+          cache-from: type=gha, scope=${{ github.workflow }}
+          cache-to: type=gha, scope=${{ github.workflow }}
+
+      - name: "📂 docker artifacts"
+        uses: actions/upload-artifact@v3
+        with:
+          name: docker
+          path: /tmp/docker.tar
+
+  build:
+    name: Build application
+    runs-on: [self-hosted, Linux, X64]
+    timeout-minutes: 10
     steps:
       - name: "☁️ checkout repository"
         uses: actions/checkout@v3
@@ -9,10 +66,102 @@ jobs:
       - name: "🔧 setup node"
         uses: actions/setup-node@v3
         with:
-          node-version: 22
+          node-version: 22   # upgrade to Node 22
 
       - name: "📦 install dependencies"
         uses: bahmutov/npm-install@v1
 
-      - name: "🔍 run tests"
-        run: npm run test --if-present
+      - name: "📊 repository visualizer"
+        id: diagram
+        uses: githubocto/repo-visualizer@0.7.1
+        with:
+          excluded_paths: "node_modules,build,.storybook,.netlify,.github,npm-shrinkwrap.json"
+          output_file: "public/diagram.svg"
+          should_push: false
+          root_path: "src/"
+
+      - name: "📊 visualiser artifacts"
+        uses: actions/upload-artifact@v3
+        with:
+          name: diagram
+          path: public/diagram.svg
+
+      - name: "🚀 static app"
+        run: npm run build
+
+      - name: "📂 production artifacts"
+        uses: actions/upload-artifact@v3
+        with:
+          name: build
+          path: build
+
+  release:
+    environment:
+      name: production
+      url: https://github.com/${{ github.repository }}/releases/tag/${{ steps.semantic-release.outputs.release-tag }}
+    name: Semantic release
+    needs:
+      - test
+      - docker
+      - build
+    runs-on: [self-hosted, Linux, X64]
+    timeout-minutes: 10
+    steps:
+      - name: "☁️ checkout repository"
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: "🔧 setup node"
+        uses: actions/setup-node@v3
+        with:
+         node-version: 22
+
+      - name: "♻️ clean up artifact paths"
+        run: |
+          rm -rf public/diagram.svg
+          rm -rf supabase/diagrams/
+
+      - name: "📂 download docker artifacts"
+        uses: actions/download-artifact@v3
+        with:
+          name: docker
+          path: /tmp
+
+      - name: "📦 load tag"
+        run: |
+          docker load --input /tmp/docker.tar
+          docker image ls -a
+
+      - name: "📂 download build artifacts"
+        uses: actions/download-artifact@v3
+        with:
+          name: build
+          path: build
+
+      - name: "📂 download diagram artifacts"
+        uses: actions/download-artifact@v3
+        with:
+          name: diagram
+          path: public/
+
+      - name: "🚀 release"
+        id: semantic-release
+        uses: open-sauced/release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  cleanup:
+    name: Cleanup actions
+    needs:
+      - release
+    runs-on: [self-hosted, Linux, X64]
+    timeout-minutes: 10
+    steps:
+      - name: "♻️ remove build artifacts"
+        uses: geekyeggo/delete-artifact@v2
+        with:
+          name: |
+            build
+            docker
+            diagram
