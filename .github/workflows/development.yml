@@ -12,7 +12,7 @@ on:
 jobs:
   test:
     name: Test application
-    runs-on: ubuntu-latest
+    runs-on: demo
     timeout-minutes: 10
     steps:
       - name: "☁️ checkout repository"
@@ -31,7 +31,7 @@ jobs:
 
   lint:
     name: Code standards
-    runs-on: ubuntu-latest
+    runs-on: demo
     timeout-minutes: 10
     steps:
       - name: "☁️ checkout repository"

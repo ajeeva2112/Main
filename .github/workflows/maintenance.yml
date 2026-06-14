@@ -8,7 +8,7 @@ on:
 
 jobs:
   maintenance:
-    runs-on: ubuntu-latest
+    runs-on: demo
     timeout-minutes: 10
     steps:
       - name: "🗑️ Remove old artifacts"
