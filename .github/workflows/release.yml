@@ -50,7 +50,7 @@ jobs:
           cache-to: type=gha, scope=${{ github.workflow }}
 
       - name: "📂 docker artifacts"
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: docker
           path: /tmp/docker.tar
@@ -66,7 +66,7 @@ jobs:
       - name: "🔧 setup node"
         uses: actions/setup-node@v3
         with:
-          node-version: 22   # upgrade to Node 22
+          node-version: 22
 
       - name: "📦 install dependencies"
         uses: bahmutov/npm-install@v1
@@ -81,7 +81,7 @@ jobs:
           root_path: "src/"
 
       - name: "📊 visualiser artifacts"
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: diagram
           path: public/diagram.svg
@@ -90,7 +90,7 @@ jobs:
         run: npm run build
 
       - name: "📂 production artifacts"
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: build
           path: build
@@ -115,7 +115,7 @@ jobs:
       - name: "🔧 setup node"
         uses: actions/setup-node@v3
         with:
-         node-version: 22
+          node-version: 22
 
       - name: "♻️ clean up artifact paths"
         run: |
@@ -123,7 +123,7 @@ jobs:
           rm -rf supabase/diagrams/
 
       - name: "📂 download docker artifacts"
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: docker
           path: /tmp
@@ -134,13 +134,13 @@ jobs:
           docker image ls -a
 
       - name: "📂 download build artifacts"
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: build
           path: build
 
       - name: "📂 download diagram artifacts"
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: diagram
           path: public/
