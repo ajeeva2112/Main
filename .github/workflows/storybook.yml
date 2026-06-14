@@ -11,7 +11,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: demo
+    runs-on: [self-hosted, Linux, X64]
     timeout-minutes: 10
     steps:
       - name: "☁️ checkout repository"

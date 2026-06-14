@@ -10,7 +10,7 @@ on:
 jobs:
   take-issue:
     name: Take issue
-    runs-on: demo
+    runs-on: [self-hosted, Linux, X64]
     permissions:
       issues: write
     timeout-minutes: 10
