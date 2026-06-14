@@ -1,20 +1,20 @@
 {
-  "name": "@open-sauced/open-sauced",
-  "description": "Open Sauced provides structured onboarding for new contributors to open source. This structure provides a way to track your next contributions by leveraging a unique dashboard built on top of the GitHub GraphQL API.",
+  "name": "@ajeeva2112/main",
+  "description": "Main repo for structured onboarding and DevOps practice workflows. Provides CI/CD pipelines, React + Vite app setup, and contributor dashboards.",
   "version": "0.57.0",
   "private": true,
   "license": "MIT",
   "files": [
     "build/**/*"
   ],
-  "bugs": "https://github.com/open-sauced/open-sauced/issues",
+  "bugs": "https://github.com/ajeeva2112/Main/issues",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/open-sauced/open-sauced.git"
+    "url": "git+ssh://git@github.com/ajeeva2112/Main.git"
   },
   "engines": {
-    "node": ">=14.16.0",
-    "npm": ">=7"
+    "node": ">=20.0.0",
+    "npm": ">=8"
   },
   "scripts": {
     "push": "npx @open-sauced/conventional-commit",
@@ -64,7 +64,7 @@
     "@nabla/vite-plugin-eslint": "^1.4.0",
     "@open-sauced/check-engines": "^1.2.0",
     "@open-sauced/conventional-commit": "^1.0.1",
-    "@squoosh/cli": "^0.7.2",
+    "@squoosh/cli": "^0.7.3",
     "@storybook/addon-essentials": "^6.4.22",
     "@storybook/addon-links": "^6.4.22",
     "@storybook/addon-storysource": "^6.4.22",
@@ -113,6 +113,6 @@
     "buildDirectory": "build"
   },
   "volta": {
-    "node": "16.14.2"
+    "node": "22.0.0"
   }
 }
