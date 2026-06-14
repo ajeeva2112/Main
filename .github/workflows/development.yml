@@ -46,6 +46,8 @@ jobs:
 
       - name: "📦 install dependencies"
         uses: bahmutov/npm-install@v1
+        with:
+          install-command: "npm install --engine-strict=false"
 
       - name: "🔍 lint code"
         run: npm run lint --if-present
