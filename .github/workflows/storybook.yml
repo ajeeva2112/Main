@@ -18,10 +18,9 @@ jobs:
         uses: actions/checkout@v3
 
       - name: "🔧 setup node"
-        uses: actions/setup-node@v3.1.5
+        uses: actions/setup-node@v3
         with:
-          node-version: 20
-
+          node-version: 22   # upgrade to Node 22 for future-proofing
 
       - name: "📦 install dependencies"
         uses: bahmutov/npm-install@v1
