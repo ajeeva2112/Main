@@ -112,6 +112,11 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: "🔧 setup node"
+        uses: actions/setup-node@v3
+        with:
+         node-version: 22
+
       - name: "♻️ clean up artifact paths"
         run: |
           rm -rf public/diagram.svg
