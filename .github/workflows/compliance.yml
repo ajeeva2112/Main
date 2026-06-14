@@ -65,4 +65,4 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           pr-message: |-
             Congrats on making your first Pull Request and thanks for taking the time to improve Open Sauced! ❤️! 🎉🍕
-            Say hello by joining the conversation in our [Discord](https://discord.gg/U2peSNf23P)
+            Say hello by joining the conversation & in our [Discord](https://discord.gg/U2peSNf23P)
