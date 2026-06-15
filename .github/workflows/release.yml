@@ -149,7 +149,7 @@ jobs:
 
       - name: "🚀 release"
         id: semantic-release
-        uses: ajeeva2112/release@v1
+        uses: cycjimmy/semantic-release-action@v4
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
