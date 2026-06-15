@@ -6,6 +6,9 @@ on:
       - main
       - alpha
       - beta
+permissions:
+  contents: write
+  packages: write
 
 jobs:
   test:
@@ -152,15 +155,19 @@ jobs:
           name: diagram
           path: public/
 
+      - name: "🔐 set git remote with token"
+        run: |
+          git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}
+
       - name: "🚀 release"
         id: semantic-release
         uses: cycjimmy/semantic-release-action@v4
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-          GIT_AUTHOR_NAME: "GitHub Actions"
-          GIT_AUTHOR_EMAIL: "41898282+github-actions[bot]@users.noreply.github.com"
-          GIT_COMMITTER_NAME: "GitHub Actions"
-          GIT_COMMITTER_EMAIL: "41898282+github-actions[bot]@users.noreply.github.com"
+          GIT_AUTHOR_NAME: "Jeeva"
+          GIT_AUTHOR_EMAIL: "ajeeva2112@gmail.com"
+          GIT_COMMITTER_NAME: "Jeeva"
+          GIT_COMMITTER_EMAIL: "ajeeva2112@gmail.com"
 
   cleanup:
     name: Cleanup actions
