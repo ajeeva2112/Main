@@ -178,6 +178,7 @@ jobs:
     steps:
       - name: "♻️ remove build artifacts"
         uses: geekyeggo/delete-artifact@v2
+        continue-on-error: true
         with:
           name: |
             build
