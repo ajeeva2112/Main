@@ -177,13 +177,29 @@ jobs:
     runs-on: [self-hosted, Linux, X64]
     timeout-minutes: 10
     steps:
+      - name: "☁️ checkout repository"
+        uses: actions/checkout@v3
+
       - name: "♻️ remove build artifacts"
         uses: geekyeggo/delete-artifact@v2
         continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
-          name: |
-            build
-            docker
-            diagram
+          name: build
+
+      - name: "♻️ remove docker artifacts"
+        uses: geekyeggo/delete-artifact@v2
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        with:
+          name: docker
+
+      - name: "♻️ remove diagram artifacts"
+        uses: geekyeggo/delete-artifact@v2
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        with:
+          name: diagram
